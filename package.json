@@ -17,7 +17,7 @@
     "regenerator-runtime": "^0.13.7"
   },
   "devDependencies": {
-    "@abel/preset-typescript": "^7.13.0",
+    "@babel/preset-typescript": "^7.13.0",
     "@babel/core": "^7.14.0",
     "@babel/preset-env": "^7.14.0",
     "@babel/preset-react": "^7.13.13",
