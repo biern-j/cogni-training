@@ -2,37 +2,35 @@ import "core-js";
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { Banner } from "./src/components/Banner";
+import { Results } from "./src/components/Results";
+
 import { Fixation } from "./src/containers/Fixation";
 
 import { targetGenerator } from "./src/utils/targetGenerator";
-import { Target } from "./src/interfaces/target";
+import { sum } from "./src/utils/fixationResult";
+import { Target, Targets } from "./src/interfaces/target";
 
 import "./src/styles/global.scss";
 
-export const App = () => {
-  enum TrainingPart {
-    target = "TARGET",
-    input = "INPUT",
-    results = "RESULTS",
-  }
+const targetDificulty = 3;
 
-  type Targets = { [key: number]: Target };
+const trainingRepetition = 3;
+
+export const App = () => {
 
   const [currentTarget, setCurrentTarget] = useState(0);
   const [targets, setTargets] = useState<Targets>();
-  const [result, setResult] = useState(false);
+  const [trainingEnd, setTrainingEnd] = useState(false);
 
   useEffect(() => {
-    const preparedTargets = targetGenerator(3, 5).reduce(
+    const preparedTargets = targetGenerator(targetDificulty, trainingRepetition).reduce(
       (acc, curr, index) => ({ ...acc, [index]: { target: curr, id: index } }),
       {}
     );
-    console.log("targets prep", preparedTargets);
     setTargets(preparedTargets);
   }, []);
 
   const handleNextTarget = (response: string) => {
-    console.log("response", response);
     if (targets) {
       setTargets({
         ...targets,
@@ -44,29 +42,32 @@ export const App = () => {
       });
     }
 
-    if (currentTarget !== 5) {
+    if (currentTarget + 1 !== trainingRepetition) {
       setCurrentTarget(currentTarget + 1);
     } else {
-      setResult(true);
+      setTrainingEnd(true);
   };
 }
-  const sum = targets&&Object.values(targets).reduce((acc, curr) => {
-    if(curr.correct) {
-      return acc + 1
-    }
-    return acc
-  }, 0);
 
-  console.log("sum",sum)
-
-  return (
-    <div>
-      {targets && (
-        <Fixation
+  const bodyToRender = () => {
+    if(targets && !trainingEnd) {
+      return <Fixation
           target={targets[currentTarget]}
           nextTargetHandler={handleNextTarget}
         />
-      )}
+    }
+    if (targets && trainingEnd) {
+      const trainingResult = sum(targets);
+      return <Results corrects={trainingResult?.correct} miss={trainingResult?.miss}/>
+    }
+    return null;
+  }
+
+  console.log("targets", targets)
+
+  return (
+    <div>
+      {bodyToRender()}
     </div>
   );
 };
