@@ -1,6 +1,7 @@
 import "core-js";
 import React, { useEffect, useState } from "react";
 import { Results } from "../../components/Results";
+import { ContentWrapper } from "../../components/ContentWrapper";
 
 import { FixationTrial } from "../../containers/FixationTrial";
 
@@ -51,7 +52,7 @@ export const Fixation = () => {
     }
     if (targets && trainingEnd) {
       const trainingResult = sum(targets);
-      return <Results corrects={trainingResult?.correct} miss={trainingResult?.miss}/>
+      return <Results targets={targets} corrects={trainingResult?.correct} miss={trainingResult?.miss}/>
     }
     return null;
   }
@@ -60,7 +61,9 @@ export const Fixation = () => {
 
   return (
     <div>
+      <ContentWrapper>
       {bodyToRender()}
+      </ContentWrapper>
     </div>
   );
 };
