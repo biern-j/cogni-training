@@ -11,14 +11,14 @@ import { Target, Targets } from "../../interfaces/target";
 
 const targetDificulty = 3;
 
-const trainingRepetition = 5;
+const trainingRepetition = 3;
 
 export const Fixation = () => {
 
   const [currentTarget, setCurrentTarget] = useState(0);
   const [targets, setTargets] = useState<Targets>(); 
 
-  const trainingEnd = currentTarget + 1 === trainingRepetition;
+  const trainingEnd = currentTarget === trainingRepetition;
 
   useEffect(() => {
     const preparedTargets = targetGenerator(targetDificulty, trainingRepetition).reduce(
@@ -60,10 +60,8 @@ export const Fixation = () => {
   console.log("trainingEnd", trainingEnd);
 
   return (
-    <div>
       <ContentWrapper>
       {bodyToRender()}
       </ContentWrapper>
-    </div>
   );
 };

@@ -1,14 +1,16 @@
 import React from "react";
 
-type Props = JSX.IntrinsicElements["input"] & {
+import { Input, InputProps } from "@material-ui/core";
+
+type Props = InputProps & {
   label?: string;
   placeholder?: string;
   id?: string;
 };
 
-export const Input = ({ ...restProps }: Props) => (
+export const Inputs = ({ ...restProps }: Props) => (
   <>
     <label htmlFor={restProps.id}>{restProps.label}</label>
-    <input id={restProps.id} {...restProps} />
+    <Input id={restProps.id} {...restProps} />
   </>
 );

@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Input, Button } from '@material-ui/core';
-
 import { useFormik } from "formik";
+import classes from "./fixation-trial.module.scss"
+
+
 
 // import { Input } from "../../components/Input";
 // import { Button } from "../../components/Button";
 
 import { Target } from "../../interfaces/target";
 
-import classes from "./fixation-trial.module.scss"
 
 type Props = {
   target: Target;
@@ -29,7 +30,7 @@ export const FixationTrial = ({ target, nextTargetHandler }: Props) => {
 
   useEffect(() => {
     usetTrial(true);
-    const tiralTimeout = setTimeout(() => usetTrial(false), 2000);
+    const tiralTimeout = setTimeout(() => usetTrial(false), 500);
     return () => clearTimeout(tiralTimeout);
   }, [target]);
 

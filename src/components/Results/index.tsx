@@ -1,16 +1,37 @@
-import React from "react"
+import React from "react";
 
-import { Targets } from "../../interfaces/target"
+import clsx from "clsx";
 
-import  classes  from "./results.module.scss";
+import { Targets } from "../../interfaces/target";
+
+import classes from "./results.module.scss";
 
 type Props = {
-    targets: Targets;
-    corrects?: number;
-    miss?: number
-}
-export const Results = ({ targets, corrects, miss }: Props) => (<div>
-    <ul>{Object.values(targets).map(target => <li key={target.id} className={classes.correctResult} >{target.target}</li> )}</ul>
-    <div>Correct: {corrects}</div>
-    <div>Miss: {miss}</div>
-</div>)
+  targets: Targets;
+  corrects?: number;
+  miss?: number;
+};
+export const Results = ({ targets, corrects, miss }: Props) => {
+  const ResultClsx = clsx({ [classes.result]: true });
+
+  console.log("targets", targets);
+
+  return (
+    <>
+      <ul className={ResultClsx}>
+        {Object.values(targets).map((target) => (
+          <li
+            key={target.id}
+            className={target.correct ? classes.correctResult : classes.missResult}
+          >
+            {target.target} - {target.correct === false ? target.response : "good answer"}
+          </li>
+        ))}
+      </ul>
+      <div className={classes.resultSummap}>
+        <div>Correct: {corrects}</div>
+        <div>Miss: {miss}</div>
+      </div>
+    </>
+  );
+};

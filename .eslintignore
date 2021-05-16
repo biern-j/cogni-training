@@ -1,0 +1,6 @@
+/node_modules
+.storybook
+craco.config.js
+tailwind.config.js
+.storybook
+./src/**/*.stories.*
