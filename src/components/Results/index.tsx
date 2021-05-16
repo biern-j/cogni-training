@@ -4,6 +4,8 @@ import clsx from "clsx";
 
 import { Targets } from "../../interfaces/target";
 
+import { Img } from "../Img";
+
 import classes from "./results.module.scss";
 
 type Props = {
@@ -32,6 +34,7 @@ export const Results = ({ targets, corrects, miss }: Props) => {
         <div>Correct: {corrects}</div>
         <div>Miss: {miss}</div>
       </div>
+      <Img/>
     </>
   );
 };
