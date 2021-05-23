@@ -1,6 +1,7 @@
 import React from "react";
 
 import clsx from "clsx";
+import { List, ListItem, Typography, Box, Grid } from "@material-ui/core";
 
 import { Targets } from "../../interfaces/target";
 
@@ -19,22 +20,22 @@ export const Results = ({ targets, corrects, miss }: Props) => {
   console.log("targets", targets);
 
   return (
-    <>
-      <ul className={ResultClsx}>
+    <Grid>
+      <List className={ResultClsx}>
         {Object.values(targets).map((target) => (
-          <li
+          <ListItem
             key={target.id}
             className={target.correct ? classes.correctResult : classes.missResult}
           >
             {target.target} - {target.correct === false ? target.response : "good answer"}
-          </li>
+          </ListItem>
         ))}
-      </ul>
-      <div className={classes.resultSummap}>
-        <div>Correct: {corrects}</div>
-        <div>Miss: {miss}</div>
-      </div>
-      <Img/>
-    </>
+      </List>
+      <Box className={classes.resultSummap}>
+        <Typography>Correct: {corrects}</Typography>
+        <Typography>Miss: {miss}</Typography>
+      </Box>
+      <Img />
+    </Grid>
   );
 };
